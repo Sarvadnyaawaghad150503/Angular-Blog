@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="signupApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body ng-controller="SignupController">
+  
+ 
+  
+  <form class="login-form" ng-submit="submitForm()">
+    <h1>Signup</h1>
+
+    <div class="form-input-material">
+    <label for="name">Name:</label>
+    <input type="text" id="name" ng-model="user.name" required><br>
+    </div>
+    
+    <div class="form-input-material">
+    <label for="email">Email:</label>
+    <input type="email" id="email" ng-model="user.email" required><br>
+    </div>
+    
+    <div class="form-input-material">
+    <label for="password">Password:</label>
+    <input type="password" id="password" ng-model="user.password" required><br>
+  </div>
+    
+    <button type="submit">Signup</button>
+
+    <a href="login.html">Already have an Account, Login</a>
+  </form>
+
+  <div ng-show="errorMessage">{{ errorMessage }}</div>
+
+  <script>
+    angular.module('signupApp', [])
+    .controller('SignupController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+      
+      $scope.user = {};
+
+      $scope.submitForm = function() {
+        $http.post('http://localhost:4100/api/user/signup', $scope.user)
+          .then(function(response) {
+            // Success
+            console.log(response.data);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            // Redirect to homepage
+            $window.location.href = "/frontend/index.html"; // Change to the appropriate URL of your homepage
+          })
+          .catch(function(error) {
+            // Error
+            console.error(error.data.message);
+            $scope.errorMessage = error.data.message;
+          });
+      };
+      
+    }]);
+  </script>
+</body>
+</html>

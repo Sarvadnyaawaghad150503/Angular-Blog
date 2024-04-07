@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="addBlogApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Blog</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="AddBlogController">
+  
+  <h1>Add Blog</h1>
+  
+  <form ng-submit="submitForm()">
+    <label for="title">Title:</label>
+    <input type="text" id="title" ng-model="blog.title" required><br>
+    
+    <label for="description">Description:</label>
+    <textarea id="description" ng-model="blog.description" required></textarea><br>
+    
+    <label for="image">Image URL:</label>
+    <input type="text" id="image" ng-model="blog.image" required><br>
+    
+    <!-- Hide the user input field -->
+    <input type="hidden" id="user" ng-model="blog.user" ng-init="blog.user = getUserID()" required><br>
+    
+    <button type="submit">Add Blog</button>
+  </form>
+
+  <div ng-show="errorMessage">{{ errorMessage }}</div>
+
+  <script>
+    angular.module('addBlogApp', [])
+    .controller('AddBlogController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+      
+      $scope.blog = {};
+
+      $scope.submitForm = function() {
+        $http.post('http://localhost:4100/api/blog/add', $scope.blog)
+          .then(function(response) {
+            // Success
+            console.log(response.data);
+            // Redirect to the home page
+            $window.location.href = '/frontend/index.html';
+          })
+          .catch(function(error) {
+            // Error
+            console.error(error.data.message);
+            $scope.errorMessage = error.data.message;
+          });
+      };
+
+      // Function to get the user's ID from local storage
+      $scope.getUserID = function() {
+        return JSON.parse(localStorage.getItem('user'))._id;
+      };
+      
+    }]);
+  </script>
+</body>
+</html>
