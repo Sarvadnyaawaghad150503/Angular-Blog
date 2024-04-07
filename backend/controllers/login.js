@@ -13,7 +13,7 @@ const login = async(req, res, next) => {
       return  console.log(err);
     }
     if(!existingUser){
-        return res.status(404).json({message : 'COuld not find User bby thiss Email'})
+        return res.status(404).json({message : 'Could not find User by this Email'})
     }
 
     const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
@@ -21,7 +21,7 @@ const login = async(req, res, next) => {
    if(!isPasswordCorrect){
     return res.status(400).json({message: 'Incorrect password'})
    }
-   return res.status(200).json({message : 'login succesgul', user: existingUser});
+   return res.status(200).json({message : 'Login successful', user: existingUser});
 
 }
 export default login;

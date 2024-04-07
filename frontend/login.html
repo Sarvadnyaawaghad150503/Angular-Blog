@@ -22,13 +22,13 @@
     <input type="password" id="password" class="form-control-material" ng-model="user.password" required><br>
   </div>
 
-    <button type="submit">Login</button>
-    <a href="signup.html">Don't have an Account ? Signup</a>
+  
+  <button type="submit">Login</button>
+  <div ng-show="errorMessage" class="error-message">{{ errorMessage }}</div> <!-- Move error message here -->
+    <a href="signup.html" class="signup-link">Don't have an Account ? Signup</a>
   </form>
   
   
-
-  <div ng-show="errorMessage">{{ errorMessage }}</div>
 
   <script>
     angular.module('loginApp', [])

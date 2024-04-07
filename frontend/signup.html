@@ -31,10 +31,10 @@
     
     <button type="submit">Signup</button>
 
-    <a href="login.html">Already have an Account, Login</a>
+    <div ng-show="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <a href="login.html" class="signup-link">Already have an Account? Login</a>
   </form>
 
-  <div ng-show="errorMessage">{{ errorMessage }}</div>
 
   <script>
     angular.module('signupApp', [])
