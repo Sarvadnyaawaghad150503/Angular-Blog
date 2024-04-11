@@ -10,9 +10,11 @@
       margin-top: 7px;
     }
     body {
-      padding-top: 60px; /* Adjust according to your navbar height */
+      padding-top: 60px; 
+      background: #9ba9e6;
+      font-family: 'Times New Roman', Times, serif;/* Adjust according to your navbar height */
     }
-    h1 {
+    h1,h3 {
       text-align: center;
     }
     .blog-list {
@@ -65,7 +67,8 @@
       </div>
     </div>
   </nav>
-
+<h3>Publish your passions, your way <br>
+  Create a unique and beautiful blog easily.</h3>
   <div class="container mt-5">
     <h1>All Blogs</h1>
 
@@ -136,6 +139,9 @@
       $http.get('http://localhost:4100/api/blog/')
         .then(function(response) {
           $scope.blogs = response.data.blogs;
+
+          
+          
         })
         .catch(function(error) {
           $scope.errorMessage = error.data.message;

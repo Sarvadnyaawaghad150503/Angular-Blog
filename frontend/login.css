@@ -3,8 +3,9 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #eceffc;
+  background: #9ba9e6;
   margin: 0;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .login-form {
